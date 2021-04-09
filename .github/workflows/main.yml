@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
 env:
-  DOCKER_IMAGE_NAME: 'bestbike-ghactions'
+  DOCKER_IMAGE_NAME: 'bootcamp-ghactions'
 jobs:
 
   build:
@@ -18,16 +18,16 @@ jobs:
 
     - uses: azure/docker-login@v1
       with:
-        login-server: bootcampdemorego.azurecr.io
+        login-server: agbccontainerego.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - run: |
-        docker build . -t bootcampdemorego.azurecr.io/bestbike-ghactions:${{ github.sha }}
-        docker push bootcampdemorego.azurecr.io/bestbike-ghactions:${{ github.sha }}
+        docker build . -t agbccontainerego.azurecr.io/bootcamp-ghactions:${{ github.sha }}
+        docker push agbccontainerego.azurecr.io/bootcamp-ghactions:${{ github.sha }}
         
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'bootcampcontainer'
+        app-name: 'azuregbccontainer'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: 'bootcampdemorego.azurecr.io/bestbike-ghactions:${{ github.sha }}'
+        images: 'agbccontainerego.azurecr.io/bootcamp-ghactions:${{ github.sha }}'
